@@ -63,7 +63,7 @@ Apply these tests when deciding where to save information:
   - Before drafting a new email, check if a related thread already exists. Reply in the existing thread instead of starting a new one.
 - Before producing any written content on Francesco's behalf, read `Brand/tone-of-voice.md` and `anti-ai-writing-style.md` in `00_Resources/`.
 - **Mandatory Logging**: Always append significant actions, file modifications, configuration updates, and session outcomes to `logs/YYYY-MM-DD.log` immediately as they happen.
-- **Blocking Interaction**: If a step requires user input (**[ASK]**), STOP immediately and wait for Francesco.
+- **Blocking Interaction**: If a step requires user input (**[ASK]**), output ONLY up to that prompt, STOP immediately, and wait for Francesco's explicit response. NEVER anticipate, execute, preview, or bundle subsequent steps (such as reminders, compilation suggestions, or later workflow phases) in the same message before Francesco has answered.
 
 ---
 
@@ -79,6 +79,9 @@ These reference files live in `00_Resources/`. Load them only when the trigger c
 | `anti-ai-writing-style.md` | Guidelines to avoid the "AI effect" in professional writing |
 | `USER.md` | Profile and background of Francesco Garavaglia |
 | `USER_BEHAVIOUR.md` | Francesco's behavioral patterns and decision making |
+| `howto-creating-area-project.md` | follow these rules to create new area or project. |
+| `howto-creating-subagents.md` | valutare se un workflow ricorrente merita un sub-agent dedicato invece di restare una resource in `[area]-resources/workflows/`. |
+| `howto-knowledge-graph.md` | gidelines to create pages of Wiki in `04_Wiki/` |
 
 ---
 
