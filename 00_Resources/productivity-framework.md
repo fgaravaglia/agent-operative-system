@@ -107,6 +107,9 @@ All workspace folders and files MUST be `lowercase` and `kebab-case`, except the
 | `anti-ai-writing-style.md` | Guidelines to avoid the "AI effect" in professional writing |
 | `USER.md` | Describes who Francesco Garavaglia is |
 | `USER_BEHAVIOUR.md` | Describes how Francesco usually acts and thinks |
+| `howto-creating-area-project.md` | follow these rules to create new area or project. |
+| `howto-creating-subagents.md` | valutare se un workflow ricorrente merita un sub-agent dedicato invece di restare una resource in `[area]-resources/workflows/`. |
+| `howto-knowledge-graph.md` | gidelines to create pages of Wiki in `04_Wiki/` |
 
 All of the above live under `00_Resources/`.
 

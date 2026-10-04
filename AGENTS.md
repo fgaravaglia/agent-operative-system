@@ -36,6 +36,7 @@ Apply these tests when deciding where to save information:
 | **Wiki (KG)** | `04_Wiki/{entities,concepts,syntheses}/`, `04_Wiki/index.md`, `04_Wiki/dashboards/` | Centralized, interlinked knowledge base — tagged by area/project, not folder-nested. more details found inside `03_templates/howto-knowledge-graph.md`. |
 | **Output** | `02_outputs/[area-name]/` | Staging for reports, complex outputs and deliverables. |
 | **Commands** | `.agents/commands/` | Slash-command playbooks (`/daily-start`, `/compile`, etc.). |
+| **Agents** | `.agents/agents/` | Definizioni degli agent (tassativamente con prefisso `agt-*.md`). |
 
 ---
 
@@ -57,12 +58,16 @@ Apply these tests when deciding where to save information:
 - Always ask clarifying questions before starting a complex task.
 - Read the right sources before answering. **Distinguish clearly between verified facts, assumptions, and missing data.**
 - Avoid sycophancy: if you disagree, say so supported by data and critical arguments.
+- **Token & Context Optimization**: Prima di invocare tool per leggere un file, verificare sempre se il contenuto è già presente nel contesto della conversazione per evitare consumo inutile di token e saturazione del context window.
+- **Agent Naming & Directory**: Tutti gli agent creati devono essere obbligatoriamente salvati nella cartella `.agents/agents/` e il loro nome file deve iniziare tassativamente con il prefisso `agt-` (es. `agt-log-cleaner.md`).
+- **Relative File Links**: Quando si scrivono link o percorsi di file nei markdown o nelle risposte, non usare MAI percorsi assoluti (`C:\...` o `file:///C:/...`): usare sempre e unicamente percorsi relativi (es. `[spese.md](./project-resources/spese.md)` o `[TaskBoard.md](./TaskBoard.md)`).
 - **Naming Standards**: all workspace folders and files MUST be `lowercase` and `kebab-case`, except mandatory `AGENTS.md`, `MEMORY.md`, `TaskBoard.md`, and Wiki dashboards (`04_Wiki/index.md`, `04_Wiki/dashboards/[name].md`).
 - **Email**:
   - Match the formality level of the original message when replying.
   - Before drafting a new email, check if a related thread already exists. Reply in the existing thread instead of starting a new one.
 - Before producing any written content on Francesco's behalf, read `Brand/tone-of-voice.md` and `anti-ai-writing-style.md` in `00_Resources/`.
 - **Mandatory Logging**: Always append significant actions, file modifications, configuration updates, and session outcomes to `logs/YYYY-MM-DD.log` immediately as they happen.
+- **Compiled Resources Relocation (01_inputs/)**: Una risorsa compilata non deve MAI rimanere nella cartella `01_inputs/`. La cartella determina lo stato del file: ogni risorsa compilata e verificata deve essere tassativamente spostata nella cartella `resources` dell'area o progetto di competenza.
 - **Blocking Interaction**: If a step requires user input (**[ASK]**), output ONLY up to that prompt, STOP immediately, and wait for Francesco's explicit response. NEVER anticipate, execute, preview, or bundle subsequent steps (such as reminders, compilation suggestions, or later workflow phases) in the same message before Francesco has answered.
 
 ---
@@ -93,7 +98,7 @@ Areas live at the workspace root. Projects are nested inside the area responsibl
 - **Project**: a finite effort with a specific, verifiable outcome. Create it at `[area]/projects/[project-name]/`.
 - **Resource**: reference file with one exclusive home. Area-level in `[area]/[area-name]-resources/`, project-level in `[area]/projects/[project-name]/project-resources/`. (Distinct from Wiki articles, which can span multiple areas).
 - **Archive**: completed projects move intact to `[area]/archive/projects/[project-name]/`.
-- follow instructions inside `03_templates/project-agents-template.md` if you need to create a new area or project.
+- Use tamplate in `03_templates/project-agents-template.md` if you need to create a new area or project.
 
 ### Resource Ownership Rules
 
@@ -117,6 +122,7 @@ Commands are defined in `.agents/commands/`:
 6. **Health Check (`/audit`)**: Lint for broken links, missing backlinks, orphans without `areas:`, duplicates and naming collisions.
 7. **Reviews (`/weekly-review`, `/monthly-summary`)**: Aggregate reports saved in `02_outputs/`.
 8. **Meeting Notes (`/meeting-new`)**: Create and structure a new meeting note in `01_inputs/` from `03_templates/meeting-notes-template.md`.
+9. **Planning (`/plan`)**: Plan non-trivial work before executing it. Socratic gate (max 5 questions), one plan file in `02_outputs/[area-name]/`, approval, optional Inbox tasks. Never executes the plan.
 
 ---
 
@@ -153,10 +159,4 @@ Move processed lines under `## Processed` with date `YYYY-MM-DD`.
 
 | Area | Route here when I... |
 | :--- | :--- |
-| Clarity Partner (`clarity-partner`) | ...need help structuring content, outlining a video, organizing complex ideas, or thinking through a strategy |
-| MODA Content (`moda-content`) | ...need to create or repurpose Modern Digital Architecture newsletter, podcast, LinkedIn, Substack, infographic, or other MODA brand assets |
-| Travel (`travel`) | ...need to plan, organise, track, or prepare for a personal trip |
-| Career (`career`) | ...need to improve or analyse LinkedIn/CV, research job positions, refine professional positioning, or prepare application materials |
-| Healthcare (`healthcare`) | ...need to track medical appointments, health expenses, prescriptions, medications, or reimbursement claims (self, family, pets) |
-| Casa (`casa`) | ...need to track household bills/utilities, split shared expenses with the co-owner, or manage property records |
-| Sports (`sports`) | ...need to track family sports activities, training schedules, registrations, medical certificate deadlines, fee payments |
+| Clarity Partner (`clarity-partner`) | ...need help structuring content, outlining a video, organizing complex ideas, or thinking 
