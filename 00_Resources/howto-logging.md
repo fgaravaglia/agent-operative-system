@@ -158,10 +158,11 @@ Each entry is a heading plus bullets, **appended at the end** of the file. Date 
 - Files touched: <relative-paths>
 
 ## [YYYY-MM-DD] lint | Health check
-- Scope: full | area:<slug>
+- Scope: full | standard | area:<slug>
 - Findings: Critical=<n> High=<n> Medium=<n> Low=<n>
 - Fixed: <IDs or none>
 - Open: <IDs left open>
+- Semantic checked: <n> remaining=<n> e - Semantic through: YYYY-MM-DD
 ```
 
 ### 2.3 Rules

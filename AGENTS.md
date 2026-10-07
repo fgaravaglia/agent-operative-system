@@ -94,7 +94,7 @@ These reference files live in `00_Resources/`. Load them only when the trigger c
 
 Areas live at the workspace root. Projects are nested inside the area responsible for their outcome.
 
-- **Area**: an ongoing responsibility with no completion date. Each area has its own `AGENTS.md`, `MEMORY.md`, `[area-name]-resources/` folder, `projects/`, and `archive/projects/`. Durable knowledge lives centrally in `04_Wiki/`.
+- **Area**: an ongoing responsibility with no completion date. Each area has its own `AGENTS.md`, `MEMORY.md`,`LOG.md`, `[area-name]-resources/` folder, `projects/`, and `archive/projects/`. Durable knowledge lives centrally in `04_Wiki/`.
 - **Project**: a finite effort with a specific, verifiable outcome. Create it at `[area]/projects/[project-name]/`.
 - **Resource**: reference file with one exclusive home. Area-level in `[area]/[area-name]-resources/`, project-level in `[area]/projects/[project-name]/project-resources/`. (Distinct from Wiki articles, which can span multiple areas).
 - **Archive**: completed projects move intact to `[area]/archive/projects/[project-name]/`.
