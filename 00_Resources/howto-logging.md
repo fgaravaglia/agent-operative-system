@@ -84,6 +84,13 @@ Exact strings, as the commands emit them. `<...>` are placeholders.
 | `SESSION` / INFO | `compile: wiki created=<n> updated=<n> sources_moved=<n> left_in_inbox=<n>` | `/compile` |
 | `SESSION` / INFO | `audit: scope=<scope> critical=<n> high=<n> medium=<n> low=<n> fixed=<n>` | `/audit` |
 | `SESSION` / INFO | `weekly-review: generated <relative-path> week=<YYYY-Www> partial=<true\|false> tracked_time=<total or partial>` | `/weekly-review` |
+| `SESSION` / INFO | `plan: generated <relative-path> ref=<ref> steps=<n>` | `/plan` |
+| `SESSION` / INFO | `plan: approved <relative-path>` | `/plan` |
+| `SESSION` / INFO | `plan: tasks created=<n> from <relative-path>` | `/plan` |
+| `SESSION` / INFO | `plan: abandoned <relative-path>` | `/plan` |
+| `SESSION` / INFO | `decompose: generated <relative-path> ref=<ref> steps=<n> new_agents_proposed=<n>` | `/decompose` |
+| `SESSION` / INFO | `decompose: agent created <relative-path>` | `/decompose` |
+| `SESSION` / INFO | `decompose: agents created=<n> skipped=<n> from <relative-path>` | `/decompose` |
 | `ERROR-EVENT` / ERROR | `<command>: <what failed> <path or id>` | any command |
 
 **Convention for new lines**: a new `SESSION` message starts with `<command>:` (like `sync:` or `compile:`). The lines without a prefix in the table are legacy and keep their exact wording because other commands search for them.

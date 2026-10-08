@@ -123,6 +123,7 @@ Commands are defined in `.agents/commands/`:
 7. **Reviews (`/weekly-review`, `/monthly-summary`)**: Aggregate reports saved in `02_outputs/`.
 8. **Meeting Notes (`/meeting-new`)**: Create and structure a new meeting note in `01_inputs/` from `03_templates/meeting-notes-template.md`.
 9. **Planning (`/plan`)**: Plan non-trivial work before executing it. Socratic gate (max 5 questions), one plan file in `02_outputs/[area-name]/`, approval, optional Inbox tasks. Never executes the plan.
+10. **Decompose (`/decompose`)**: Take a workflow or request and break it into steps mapped on building blocks that cover them (tool, skill, command, agent, workflow resource, manual).
 
 ---
 
