@@ -91,6 +91,12 @@ Exact strings, as the commands emit them. `<...>` are placeholders.
 | `SESSION` / INFO | `decompose: generated <relative-path> ref=<ref> steps=<n> new_agents_proposed=<n>` | `/decompose` |
 | `SESSION` / INFO | `decompose: agent created <relative-path>` | `/decompose` |
 | `SESSION` / INFO | `decompose: agents created=<n> skipped=<n> from <relative-path>` | `/decompose` |
+| `SESSION` / INFO | `skills: created <relative-path> plugin=<plugin | standalone>` |  |
+| `SESSION` / INFO | `skills: updated <relative-path> plugin=<plugin | standalone>` | |
+| `SESSION` / INFO | `skills: moved <old-path> -> <new-path> plugin=<plugin | standalone>` | |
+| `SESSION` / INFO | `skills: removed <relative-path> plugin=<plugin | standalone>` | |
+| `SESSION` / INFO | `plugins: created | updated | renamed | removed <relative-path>` | |
+| `SESSION` / INFO | `plugins: index synced <relative-path> changes=<n>` | |
 | `ERROR-EVENT` / ERROR | `<command>: <what failed> <path or id>` | any command |
 
 **Convention for new lines**: a new `SESSION` message starts with `<command>:` (like `sync:` or `compile:`). The lines without a prefix in the table are legacy and keep their exact wording because other commands search for them.

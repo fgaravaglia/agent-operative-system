@@ -87,6 +87,7 @@ These reference files live in `00_Resources/`. Load them only when the trigger c
 | `howto-creating-area-project.md` | follow these rules to create new area or project. |
 | `howto-creating-subagents.md` | valutare se un workflow ricorrente merita un sub-agent dedicato invece di restare una resource in `[area]-resources/workflows/`. |
 | `howto-knowledge-graph.md` | gidelines to create pages of Wiki in `04_Wiki/` |
+| `howto-plugins-and-skills.md` | gidelines to manage plugins and standalone skills |
 
 ---
 
@@ -160,4 +161,5 @@ Move processed lines under `## Processed` with date `YYYY-MM-DD`.
 
 | Area | Route here when I... |
 | :--- | :--- |
-| Clarity Partner (`clarity-partner`) | ...need help structuring content, outlining a video, organizing complex ideas, or thinking 
+| Clarity Partner (`clarity-partner`) | ...need help structuring content, outlining a video, organizing complex ideas, or thinking |
+| Email Hub (`email-hub`) | ...need to write emails, draft replies, prepare important communications, or refine tone and formality of email threads |
