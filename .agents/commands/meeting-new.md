@@ -35,9 +35,20 @@ Create and structure a new meeting note in `01_inputs/` using the official templ
 
 3. **Process Content**:
    - If raw transcript/notes are provided:
-     - Fill in **`## Summary`**: Concise summary of key discussion points and decisions.
-     - Fill in **`## Action Items`**: Bullet list of tasks and deliverables (`- [ ] ...`).
-     - Fill in **`## Key Points`**: Strategic insights, takeaways, and topics discussed.
+
+
+   ## 1. SUMMARY & DISCUSSED TOPICS
+
+## 2. KEY DECISIONS / GIVE AWAYS INFORMATION
+
+## 3. ACTION ITEMS
+
+## 4. NEXT STEPS / NEXT MEETING
+
+     - Fill in **`## 1. SUMMARY & DISCUSSED TOPICS`**: Concise summary of key discussion points and decisions.
+     - Fill in **`## 3. ACTION ITEMS`**: Bullet list of tasks and deliverables (`- [ ] ...`).
+     - Fill in **`## 2. KEY DECISIONS / GIVE AWAYS INFORMATION`**: Strategic insights, takeaways, and topics discussed.
+     - Fill in **`## 4. NEXT STEPS / NEXT MEETING`**:the agreed next steps or next meeting to be planned on same topic as followup
      - Append full unedited notes under **`## Raw Transcript`**.
    - If raw transcript is not yet available:
      - Create the skeleton file ready to receive notes later.

@@ -53,8 +53,8 @@ Ingest interim captures: process meeting notes in `01_inputs/` (created by `/mee
   - `date`: the meeting date, used in `why:` of created tasks.
   - `attendees`: context only. Never used to fill `owner` (only an explicit `@name` in an action item does that).
   - `status`, `tags`: ignored.
-- **Meeting sections** (headings from `03_templates/meeting-notes-template.md`): `## Summary`, `## Action Items`, `## Key Points`, `## Raw Transcript`.
-- **Skeleton meeting**: a meeting file where all four sections are empty (created by `/meeting-new` before notes exist). It is not a row: it is listed under "Skeleton meetings, waiting for notes" and left unprocessed, with no ledger line.
+- **Meeting sections** take headings from `03_templates/meeting-notes-template.md`
+- **Skeleton meeting**: a meeting file where all sections are empty (created by `/meeting-new` before notes exist). It is not a row: it is listed under "Skeleton meetings, waiting for notes" and left unprocessed, with no ledger line.
 - **Meeting ledger line**: written to the daily log when a meeting is fully resolved:
   `YYYY-MM-DD HH:MM:SS | INFO | SESSION | sync: meeting processed file=<filename> actions=<n> tasks_created=<n>`
   A meeting is **processed** if any file in `logs/` contains `file=<filename>` on such a line. Otherwise it is **unprocessed**. (After `/compile` renames and moves a meeting, old ledger lines keep the original name: this is expected, logs are append-only.)
@@ -69,7 +69,7 @@ Ingest interim captures: process meeting notes in `01_inputs/` (created by `/mee
 2. Ensure `logs/<today>.log` exists. If missing, create it empty and warn that `/daily-start` was not run.
 3. Read `scratchpad.md`: list unprocessed items (up to the cap), unrecognized lines, count of remaining items.
 4. List meeting files in `01_inputs/` (Definitions: frontmatter OR filename pattern). Files of other types (`type: email`, generic documents) are NOT handled here: they wait for `/compile`. For each meeting file, grep the ledger in `logs/` and keep only unprocessed ones (up to the cap).
-5. Read `03_templates/meeting-notes-template.md` once, only if there is a meeting to process, to confirm the exact headings (Summary, Action Items, Key Points, Raw Transcript).
+5. Read `03_templates/meeting-notes-template.md` once, only if there is a meeting to process, to confirm the exact headings
 6. If there is nothing to process, say so and go directly to Phase 5.
 
 ---
@@ -82,8 +82,9 @@ For each unprocessed meeting:
 
 - Read the frontmatter and the four sections.
 - If all four sections are empty: it is a **skeleton meeting** (Definitions). Do not create a row.
-- Verify that `## Summary`, `## Action Items` and `## Key Points` exist and are not empty. Missing or empty ones are reported, never filled. If `## Raw Transcript` has content but the other sections are empty, report: *"notes not structured: re-run the processing in `/meeting-new`"*. Do not extract anything from the raw text.
-- Extract the action items from `## Action Items` (one per bullet or checkbox `- [ ] ...`). Parse `@name` as owner and `YYYY-MM-DD` as due date when present.
+- Verify that `## 1. SUMMARY & DISCUSSED TOPICS`, `## 2. KEY DECISIONS / GIVE AWAYS INFORMATION`, `## 3. ACTION ITEMS` exist and are not empty. Missing or empty ones are reported, never filled. If `## Raw Transcript` has content but the other sections are empty, report: *"notes not structured: re-run the processing in `/meeting-new`"*. Do not extract anything from the raw text.
+- process the notes of the user of this meeting using skill `meeting-minute` and append to this file the full minute ready to be sent in this exact file
+- Extract the action items from `## 3. ACTION ITEMS` (one per bullet or checkbox `- [ ] ...`). Parse `@name` as owner and `YYYY-MM-DD` as due date when present.
 - The meeting's ref: frontmatter `area` if valid, otherwise proposed from the content.
 - Key points and insights need no action: `/compile` reads the file as long as it stays in `01_inputs/`.
 - A meeting with zero action items (and non-empty Summary or Key Points) becomes one row of type `MEETING` (action: mark processed).

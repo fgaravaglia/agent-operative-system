@@ -9,11 +9,13 @@ tags: [maximum 3 tags]
 
 # {{TITLE}}
 
-## Summary
+## 1. SUMMARY & DISCUSSED TOPICS
 
-## Action Items
+## 2. KEY DECISIONS / GIVE AWAYS INFORMATION
 
-## Key Points
+## 3. ACTION ITEMS
+
+## 4. NEXT STEPS / NEXT MEETING
 
 ---
 
