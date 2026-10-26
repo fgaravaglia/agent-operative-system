@@ -1,0 +1,6 @@
+{
+    "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+    "name": "productivity",
+    "description": "Plugin specifically designed to enhance productivity and efficiency in various tasks. Each skill is crafted to streamline workflows and optimize performance.",
+    "version": "1.0.0"
+}

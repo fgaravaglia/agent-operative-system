@@ -2,6 +2,8 @@
 
 These rules apply to every task unless explicitly overridden. Bias: caution over speed for non-trivial work.
 
+**High-Priority Rule:** Always distinguish verified data (sources, files, tool outputs) from your assumptions and list the latter in a final 'Assumptions' section. Indicate the data sources. If you are missing essential data, you must ask for it and never invent it."
+
 - Rule 1 — Think Before You Code. Express assumptions explicitly. Ask instead of guessing. Push back when a simpler approach exists. Stop when confused.
 - Rule 2 — Simplicity First. Minimal code that solves the problem. Nothing speculative. No abstractions for single-use code.
 - Rule 3 — Surgical Changes. Touch only what you must. Do not improve adjacent code. Respect existing style. Do not refactor what is not broken.
