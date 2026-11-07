@@ -46,6 +46,7 @@ Se la logica cambia, si tocca un solo file (il workflow), non due. Le sezioni "W
 - **Link relativi per i riferimenti.** Workflow, resource e linee guida si citano con percorsi relativi, mai assoluti.
 - **Un tool che non esiste viene ignorato in silenzio** dai runtime: dichiara solo tool verificati, altrimenti l'agent sembra funzionare ma non agisce.
 - **Metadata nel corpo, non nel frontmatter.** I campi frontmatter non standard (es. `handoffs`, `target`, `user-invokable`, `mcp-servers`, `argument-hint`) sono specifici di VS Code/Copilot e non sono garantiti stabili su Antigravity/Codex. Il frontmatter resta minimo; tutto il resto va in sezioni del corpo.
+- **Prompt flessibili e parametri dinamici.** Evita di hardcodare contesti o variabili che cambiano nel tempo. Progetta le istruzioni usando variabili di policy e placeholder dinamici (es. `{{user_context}}`, `{{target_environment}}`) da iniettare al momento dell'esecuzione. Questo evita di dover modificare il file dell'agent per adattarlo a variazioni di scenario o casi d'uso limitrofi.
 
 ---
 
@@ -80,9 +81,6 @@ model: [modello da usare, se configurabile]
 tools:
   - lista dei tool/MCP che può invocare
   - es. notion-mcp
-skills:
-  - lista delle skill richiamabili
-  - es. linkedin-posts, substack-notes
 ---
  
 # [Nome Agente]

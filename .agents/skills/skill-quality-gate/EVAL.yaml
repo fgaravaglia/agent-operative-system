@@ -1,0 +1,21 @@
+cases:
+  - id: audit-skill-rotta
+    prompt: "Controlla questa skill prima del rilascio: la cartella ha SKILL.md con name diverso dalla cartella"
+    expectations:
+      - "L'agente esegue scripts/run_gates.py sulla cartella della skill."
+      - "L'agente segnala la discrepanza tra name e nome cartella."
+      - "L'agente non avvia la review AI finche' i gate deterministici falliscono."
+  - id: bump-versione
+    prompt: "Ho cambiato una reference, che versione metto?"
+    expectations:
+      - "L'agente usa scripts/check_version.py per verificare il bump."
+      - "L'agente propone MAJOR, MINOR o PATCH con una motivazione."
+  - id: eval-composta
+    prompt: "Scrivimi le eval per la mia skill del bucket"
+    expectations:
+      - "L'agente scrive ogni aspettativa con un solo criterio."
+  - id: genera-indice
+    prompt: "Crea README.md e index.json per la cartella skills/"
+    expectations:
+      - "L'agente esegue scripts/gen_index.py sulla cartella skills."
+      - "L'agente non scrive README.md a mano."

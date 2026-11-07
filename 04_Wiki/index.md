@@ -8,7 +8,8 @@ Benvenuto nella Wiki centralizzata di Francesco Garavaglia. Questa Wiki raccogli
 
 | Area | Dashboard Wiki | Descrizione Ambito |
 | :--- | :--- | :--- |
-| **Clarity Partner** | [clarity-partner](./clarity-partner.md) | Strutturazione contenuti, outline video, organizzazione idee complesse, pensiero strategico. |
+| **Clarity Partner** | [clarity-partner](./dashboards/clarity-partner.md) | Strutturazione contenuti, outline video, organizzazione idee complesse, pensiero strategico. |
+| **Email Hub** | [email-hub](./dashboards/email-hub.md) | Gestione, stesura e revisione di email, draft di risposta e comunicazioni strategiche. |
 ---
 
 ## 🚀 Progetti Attivi
@@ -18,7 +19,7 @@ Benvenuto nella Wiki centralizzata di Francesco Garavaglia. Questa Wiki raccogli
 ---
 
 ## 🧭 Navigazione Rapida
-- [Tutte le Entità](../entities/)
-- [Tutti i Concetti](../concepts/)
-- [Tutte le Sintesi](../syntheses/)
+- [Tutte le Entità](./entities/)
+- [Tutti i Concetti](./concepts/)
+- [Tutte le Sintesi](./syntheses/)
 

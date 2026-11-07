@@ -1,0 +1,11 @@
+# Una aspettativa = un criterio. Niente "e" / elenchi dentro la stessa riga.
+cases:
+  - id: caso-base
+    prompt: "Descrivi qui la richiesta utente realistica"
+    expectations:
+      - "L'agente fa X."
+      - "L'agente NON fa Y."
+  - id: caso-da-file
+    prompt: "@file:prompts/caso-da-file.txt"
+    expectations:
+      - "L'agente produce l'artefatto Z."

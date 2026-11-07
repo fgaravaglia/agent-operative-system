@@ -1,0 +1,22 @@
+{
+  "theme": "light",
+  "density": "airy",
+  "brand": "MODA",
+  "palette": {
+    "primary": "#A020F0",
+    "primaryHover": "#8717cc",
+    "secondary": "#333333",
+    "accentLight": "#DDA0DD",
+    "background": "#F8F9FA",
+    "surface": "#FFFFFF",
+    "border": "#E5E7EB",
+    "textPrimary": "#333333",
+    "textSecondary": "#6B7280",
+    "urgent": "#DC2626",
+    "warning": "#F59E0B",
+    "success": "#10B981"
+  },
+  "typography": {
+    "fontFamily": "Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+  }
+}
