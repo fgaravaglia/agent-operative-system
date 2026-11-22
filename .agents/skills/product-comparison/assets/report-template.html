@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Confronto prodotti</title>
+<style>
+:root{--bg:#f6f6f3;--card:#fff;--ink:#1c1c1a;--mute:#6b6b66;--line:#e2e2dc;--acc:#2b5fd9;--good:#1f8a4c;--bad:#c23b2e;--warn:#a86b0a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151514;--card:#1f1f1d;--ink:#ecece8;--mute:#9a9a94;--line:#34342f;--acc:#7da2ff;--good:#4cc283;--bad:#ff7a6b;--warn:#e3b04b}}
+:root[data-theme="dark"]{--bg:#151514;--card:#1f1f1d;--ink:#ecece8;--mute:#9a9a94;--line:#34342f;--acc:#7da2ff;--good:#4cc283;--bad:#ff7a6b;--warn:#e3b04b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:20px 16px 8px;max-width:1000px;margin:auto}
+h1{margin:0;font-size:22px}h2{font-size:17px;margin:0 0 10px}h3{font-size:14px;margin:12px 0 4px}
+.sub{color:var(--mute);margin:2px 0 8px}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:12px;color:var(--mute);margin:0 4px 4px 0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:6px 16px;max-width:1000px;margin:auto}
+nav button{background:none;border:0;color:var(--mute);padding:8px 12px;border-radius:8px;font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{background:var(--card);color:var(--ink);font-weight:600;box-shadow:0 0 0 1px var(--line)}
+main{max-width:1000px;margin:auto;padding:12px 16px 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th.s{cursor:pointer;user-select:none}th.s:hover{color:var(--acc)}
+td.n{text-align:center;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:var(--acc);margin-top:4px}
+.rank{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.rank .k{flex:1;min-width:0}.rank b{font-variant-numeric:tabular-nums}
+.out{opacity:.5}
+.tag{font-size:11px;border-radius:4px;padding:1px 6px;border:1px solid var(--line);color:var(--mute);margin-left:6px}
+.warn{border:1px solid var(--warn);color:var(--warn);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.g2{grid-template-columns:1fr}}
+.pro li::marker{color:var(--good)}.con li::marker{color:var(--bad)}
+ul{margin:4px 0;padding-left:20px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+summary{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;gap:8px;font-weight:600}
+details>div{padding:0 14px 14px}
+.drv{margin-bottom:14px}.drv label{display:flex;justify-content:space-between;font-weight:600}
+.drv input{width:100%}.drv p{margin:2px 0;color:var(--mute);font-size:13px}
+input[type=number]{width:120px;padding:6px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:4px 0;font-size:14px}dt{color:var(--mute)}dd{margin:0}
+a{color:var(--acc)}
+.v{border-left:4px solid var(--acc)}
+</style>
+</head>
+<body>
+<header><h1 id="t"></h1><p class="sub" id="st"></p><div id="chips"></div></header>
+<nav id="nav"></nav>
+<main>
+<section id="overview"></section>
+<section id="drivers" hidden></section>
+<section id="compare" hidden></section>
+<section id="cards" hidden></section>
+<section id="verdict" hidden></section>
+</main>
+<script id="data" type="application/json">__DATA_JSON__</script>
+<script>
+const D=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cur=D.meta.currency||'€';
+const W={};D.drivers.forEach(d=>W[d.id]=d.weight);
+let maxP=D.meta.budget_max||0,sortKey='total',sortDir=-1;
+const total=p=>{let t=0,s=0;D.drivers.forEach(d=>{t+=W[d.id]*(p.scores[d.id]||0);s+=W[d.id]});return s?t/s:0};
+const out=p=>maxP>0&&p.price_low>maxP;
+const heat=v=>'background:hsl('+Math.round(v*12)+' 65% 50% / .25)';
+const byId=id=>D.products.find(p=>p.id===id);
+const safeUrl=u=>/^https?:\/\//i.test(u)?u:'#';
+const li=a=>(a||[]).map(x=>'<li>'+esc(x)+'</li>').join('');
+
+// Header e navigazione
+$('t').textContent=D.meta.title;
+$('st').textContent=[D.meta.subtitle,D.meta.date].filter(Boolean).join(' · ');
+$('chips').innerHTML=(D.brief||[]).map(b=>'<span class="chip"><b>'+esc(b.label)+':</b> '+esc(b.value)+'</span>').join('');
+const tabs=[['overview','Panoramica'],['drivers','Driver e pesi'],['compare','Confronto'],['cards','Schede'],['verdict','Verdetto']];
+$('nav').innerHTML=tabs.map(t=>'<button data-t="'+t[0]+'">'+t[1]+'</button>').join('');
+function show(id){tabs.forEach(t=>{$(t[0]).hidden=t[0]!==id});document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));window.scrollTo(0,0)}
+$('nav').onclick=e=>{if(e.target.dataset.t)show(e.target.dataset.t)};
+
+// Panoramica: tldr, avvisi, classifica pesata, filtro budget
+function renderOverview(){
+  const ranked=[...D.products].sort((a,b)=>total(b)-total(a));
+  $('overview').innerHTML=
+   (D.meta.tldr?'<div class="card"><h2>In sintesi</h2><div>'+esc(D.meta.tldr)+'</div></div>':'')+
+   (D.alerts||[]).map(a=>'<div class="warn">⚠️ '+esc(a)+'</div>').join('')+
+   '<div class="card"><h2>Classifica pesata</h2><p class="sub">Si ricalcola quando cambi i pesi nella scheda Driver.</p>'+
+   '<p>Budget massimo ('+esc(cur)+'): <input type="number" id="bud" min="0" step="500" value="'+(maxP||'')+'" placeholder="nessun limite"></p>'+
+   ranked.map((p,i)=>'<div class="rank'+(out(p)?' out':'')+'"><span>'+(i+1)+'</span><div class="k"><b style="font-weight:600">'+esc(p.name)+'</b>'+(out(p)?'<span class="tag">fuori budget</span>':'')+
+   '<div class="bar" style="width:'+(total(p)*10)+'%"></div></div><b>'+total(p).toFixed(1)+'</b></div>').join('')+'</div>';
+  $('bud').onchange=e=>{maxP=+e.target.value||0;renderOverview();renderTable()};
+}
+
+// Driver: slider dei pesi
+function renderDrivers(){
+  $('drivers').innerHTML='<div class="card"><h2>Decision Drivers</h2><p class="sub">Sposta i cursori: i pesi vengono normalizzati, la classifica si aggiorna.</p>'+
+  D.drivers.map(d=>'<div class="drv"><label>'+esc(d.name)+'<span id="w-'+d.id+'">'+W[d.id]+'%</span></label><input type="range" min="0" max="50" value="'+W[d.id]+'" data-d="'+d.id+'"><p>'+esc(d.why)+'</p>'+(d.how?'<p><i>Come lo misuro:</i> '+esc(d.how)+'</p>':'')+'</div>').join('')+
+  '<button id="rst">Ripristina pesi</button></div>';
+  $('drivers').oninput=e=>{const id=e.target.dataset.d;if(!id)return;W[id]=+e.target.value;$('w-'+id).textContent=W[id]+'%';renderOverview();renderTable()};
+  $('rst').onclick=()=>{D.drivers.forEach(d=>W[d.id]=d.weight);renderDrivers();renderOverview();renderTable()};
+}
+
+// Confronto: tabella ordinabile con heatmap
+function renderTable(){
+  const val=(p,k)=>k==='total'?total(p):k==='price'?p.price_low:k==='name'?p.name:(p.scores[k]||0);
+  const rows=[...D.products].sort((a,b)=>{const x=val(a,sortKey),y=val(b,sortKey);return (x>y?1:x<y?-1:0)*sortDir});
+  const th=(k,l)=>'<th class="s" data-k="'+k+'">'+esc(l)+(sortKey===k?(sortDir<0?' ↓':' ↑'):'')+'</th>';
+  $('compare').innerHTML='<div class="card"><h2>Confronto</h2><p class="sub">Tocca un’intestazione per ordinare. Voti 0–10.</p><div class="scroll"><table><tr>'+th('name','Modello')+th('price','Prezzo')+
+   D.drivers.map(d=>th(d.id,d.name)).join('')+th('total','Totale')+'<th>Affidabilità dati</th></tr>'+
+   rows.map(p=>'<tr class="'+(out(p)?'out':'')+'"><td><b>'+esc(p.name)+'</b></td><td>'+esc(p.price_label||p.price_low)+'</td>'+
+   D.drivers.map(d=>'<td class="n" style="'+heat(p.scores[d.id]||0)+'">'+(p.scores[d.id]!=null?p.scores[d.id]:'–')+'</td>').join('')+
+   '<td class="n"><b>'+total(p).toFixed(1)+'</b></td><td>'+esc(p.confidence||'–')+'</td></tr>').join('')+'</table></div></div>';
+  $('compare').querySelectorAll('th.s').forEach(h=>h.onclick=()=>{const k=h.dataset.k;sortDir=sortKey===k?-sortDir:-1;sortKey=k;renderTable()});
+}
+
+// Schede per modello
+function renderCards(){
+  $('cards').innerHTML=D.products.map(p=>'<details><summary><span>'+esc(p.name)+'</span><span class="tag">'+esc(p.price_label||'')+'</span></summary><div>'+
+  (p.known_issues&&p.known_issues.length?'<div class="warn"><b>Difetti noti</b><ul>'+li(p.known_issues)+'</ul></div>':'')+
+  '<div class="g2"><div><h3>Punti di forza</h3><ul class="pro">'+li(p.pros)+'</ul></div><div><h3>Criticità</h3><ul class="con">'+li(p.cons)+'</ul></div></div>'+
+  (p.fit_note?'<h3>Adatto a / non adatto a</h3><p>'+esc(p.fit_note)+'</p>':'')+
+  (p.specs?'<h3>Specifiche</h3><dl>'+Object.keys(p.specs).map(k=>'<dt>'+esc(k)+'</dt><dd>'+esc(p.specs[k])+'</dd>').join('')+'</dl>':'')+
+  '<h3>Fonti</h3>'+((p.sources&&p.sources.length)?'<ul>'+p.sources.map(s=>'<li><a href="'+esc(safeUrl(s.url))+'" target="_blank" rel="noopener noreferrer">'+esc(s.label)+'</a></li>').join('')+'</ul>':'<p class="sub">Nessuna fonte indicata.</p>')+
+  '<p class="sub">Affidabilità dati: '+esc(p.confidence||'n/d')+(p.price_date?' · prezzi al '+esc(p.price_date):'')+'</p></div></details>').join('');
+}
+
+// Verdetto
+function renderVerdict(){
+  const L={best_buy:'🏆 Il Best Buy',top:'🔝 Il Top di Gamma',smart:'💡 L’Alternativa Smart'};
+  $('verdict').innerHTML=(D.verdicts||[]).map(v=>{const p=byId(v.product)||{name:v.product};
+   return '<div class="card v"><h2>'+(L[v.type]||'Verdetto')+': '+esc(p.name)+'</h2>'+(v.headline?'<p><b>'+esc(v.headline)+'</b></p>':'')+'<p>'+esc(v.why)+'</p>'+(v.caveat?'<div class="warn">Attenzione: '+esc(v.caveat)+'</div>':'')+'</div>'}).join('');
+}
+renderOverview();renderDrivers();renderTable();renderCards();renderVerdict();show('overview');
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "meta": {"title": "Confronto SUV cinesi/coreani", "subtitle": "Esempio dal file allegato · 10.000 km/anno, cane di taglia grande", "category": "Automotive", "date": "2026-10-18", "budget_max": 28000, "currency": "€",
+    "tldr": "MG HS è il miglior equilibrio per sostituire una C5 Aircross; KGM Korando GPL è la scelta più razionale entro budget; DR 6.0 vince sul prezzo ma cede su guida e assistenza."},
+  "brief": [{"label": "Uso", "value": "10.000 km/anno"}, {"label": "Vincolo", "value": "bagagliaio > 450–500 L"}, {"label": "Budget", "value": "~28.000 €"}],
+  "alerts": ["Dati dell’esempio presi dal file allegato: prezzi e fonti da riverificare prima dell’acquisto."],
+  "drivers": [
+    {"id": "d1", "name": "Spazio per il cane", "why": "Un Pastore Tedesco richiede 450–500 L reali, tetto non spiovente e pareti regolari.", "how": "Litri reali, altezza e regolarità del vano", "weight": 25},
+    {"id": "d2", "name": "Powertrain e consumi", "why": "Pochi km/anno, uso urbano/extraurbano: contano fluidità e consumi.", "how": "Tipo di cambio, consumi reali", "weight": 20},
+    {"id": "d3", "name": "Comfort e isolamento", "why": "Chi viene da una Citroën è abituato a sospensioni morbide e silenzio.", "how": "NVH e assorbimento", "weight": 20},
+    {"id": "d4", "name": "Assistenza e ricambi", "why": "Marchi emergenti: la rete incide su fermo macchina e valore residuo.", "how": "Capillarità rete, tempi ricambi", "weight": 15},
+    {"id": "d5", "name": "Dotazione/prezzo", "why": "ADAS L2, cam 360°, connettività dentro il budget.", "how": "Dotazione di serie vs prezzo", "weight": 20}
+  ],
+  "products": [
+    {"id": "p1", "name": "MG HS (1.5T / Hybrid+)", "brand": "MG", "price_low": 27490, "price_high": 31990, "price_label": "27.490 – 31.990 €", "scores": {"d1": 9, "d2": 8, "d3": 8.5, "d4": 7.5, "d5": 9}, "confidence": "media",
+     "specs": {"Origine": "Cina (SAIC)", "Lunghezza": "4,67 m", "Bagagliaio": "507 L (1.484 L max)", "Garanzia": "7 anni / 150.000 km"},
+     "pros": ["Vano squadrato da 507 L", "Finiture e isolamento curati", "Garanzia 7 anni"], "cons": ["Infotainment lento a freddo", "1.5T solo benzina: 12–13 km/l in città"], "known_issues": [], "fit_note": "Alta idoneità per un cane grande: tetto alto e parallelo al piano di carico."},
+    {"id": "p2", "name": "KGM Korando (1.5T / GPL)", "brand": "KGM", "price_low": 25490, "price_high": 28190, "price_label": "25.490 – 28.190 €", "scores": {"d1": 8.5, "d2": 7.5, "d3": 8, "d4": 7, "d5": 8.5}, "confidence": "media",
+     "specs": {"Origine": "Corea del Sud", "Lunghezza": "4,45 m", "Bagagliaio": "551 L (1.248 L max)", "Garanzia": "5 anni / 100.000 km"},
+     "pros": ["551 L molto sfruttabili", "GPL a listino", "Compatta in città"], "cons": ["1.5T a benzina ~12 km/l", "Infotainment meno moderno"], "known_issues": [], "fit_note": "Ottima: piano regolare, bocca di carico ampia."},
+    {"id": "p3", "name": "DR 6.0 ThermoHybrid GPL", "brand": "DR", "price_low": 25900, "price_high": 27900, "price_label": "25.900 – 27.900 €", "scores": {"d1": 8.5, "d2": 6.5, "d3": 7, "d4": 6.5, "d5": 9.5}, "confidence": "bassa",
+     "specs": {"Origine": "Italia / Cina (Chery)", "Lunghezza": "4,51 m", "Bagagliaio": "~600 L (dichiarati 680 L)"},
+     "pros": ["Prezzo molto competitivo", "GPL di serie", "Vano molto profondo"], "cons": ["Sospensioni molli, rollio", "Cambio pigro", "Assistenza altalenante"], "known_issues": ["Serbatoio GPL nel vano ruotino: soglia di carico più alta"], "fit_note": "Buona per il cane, meno per chi guida molto o cerca precisione."},
+    {"id": "p4", "name": "MG ZS Hybrid+", "brand": "MG", "price_low": 23490, "price_high": 25490, "price_label": "23.490 – 25.490 €", "scores": {"d1": 6.5, "d2": 8.5, "d3": 7.5, "d4": 7.5, "d5": 9}, "confidence": "media",
+     "specs": {"Origine": "Cina (SAIC)", "Lunghezza": "4,43 m", "Bagagliaio": "443 L"},
+     "pros": ["Full hybrid 197 CV efficiente", ">20 km/l in città"], "cons": ["Serbatoio da 41 L", "Bagagliaio al limite", "Sterzo poco comunicativo"], "known_issues": [], "fit_note": "Al limite per un cane grande, poco spazio per altro."},
+    {"id": "p5", "name": "BYD Atto 2", "brand": "BYD", "price_low": 29990, "price_high": 34000, "price_label": "29.990 – 34.000 €", "scores": {"d1": 5.5, "d2": 8.5, "d3": 8, "d4": 7, "d5": 6.5}, "confidence": "media",
+     "specs": {"Origine": "Cina (BYD)", "Lunghezza": "4,31 m", "Bagagliaio": "400 L"},
+     "pros": ["Design e assemblaggi curati", "Blade Battery"], "cons": ["Fuori budget senza incentivi", "Bagagliaio da 400 L"], "known_issues": [], "fit_note": "Scarsa idoneità per un Pastore Tedesco."}
+  ],
+  "verdicts": [
+    {"type": "best_buy", "product": "p1", "why": "Miglior sintesi tra guida, tecnologia, isolamento e vano di carico per sostituire la C5 Aircross.", "caveat": "Il listino sale oltre i 28.000 € con le versioni Hybrid+."},
+    {"type": "top", "product": "p2", "headline": "La scelta concreta a GPL", "why": "Resta nel budget con 551 L e bassi costi al km sui 10.000 km annui.", "caveat": "Il 1.5T a benzina consuma molto in città: il GPL è la versione sensata."},
+    {"type": "smart", "product": "p3", "why": "Massimo spazio e dimensioni al prezzo più basso.", "caveat": "Guida imprecisa, assistenza irregolare: verifica il concessionario di zona."}
+  ]
+}

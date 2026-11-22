@@ -1,0 +1,6 @@
+{
+    "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+    "name": "enterprise-architect",
+    "description": "collection of skills specifically designed for Enterprise Architects and engineering leaders. Each skill embeds proven methodologies and frameworks refined through real-world CTO experience.",
+    "version": "1.0.0"
+}

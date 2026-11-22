@@ -976,12 +976,77 @@
   <!-- TOAST CONTAINER -->
   <div class="toast-container" id="toastContainer"></div>
 
+  <script type="text/markdown" id="initialTaskboard">
+# TaskBoard
+
+Tabellone operativo per la gestione e prioritizzazione dei task secondo il Productivity Framework.
+
+---
+
+## 📥 Inbox
+
+*Cattura iniziale dei task da triage o da meeting prima di assegnare la priorità.*
+
+---
+
+## 🚨 Urgenti
+
+---
+
+## 🟧 Media Priorità
+
+---
+
+## 🟦 Bassa Priorità
+
+- [ ] [as-2026-2027] Pagamento corso di spagnolo (120 EUR) [due:: 2026-11-01] [owner:: @francesco] [status:: todo]
+  - why: captured in scratchpad on 2026-10-15
+  - outcomes: Pagamento 120,00 EUR effettuato
+- [ ] [SPORTS] Pagamento 2° trimestre Karate (Dic 2026 - Feb 2027) Daniele e Marina [due:: 2026-12-01] [owner:: @francesco] [status:: todo]
+  - why: Saldo quote trimestrali corso Karate Traditional Karate Goju Ryu (Daniele 120 EUR, Marina 75 EUR)
+  - outcomes: Pagamento 195,00 EUR effettuato e attivita-sportive.csv aggiornato
+- [ ] [SPORTS] Pagamento 3° trimestre Karate (Mar 2027 - Mag 2027) Daniele e Marina [due:: 2027-03-01] [owner:: @francesco] [status:: todo]
+  - why: Saldo quote trimestrali corso Karate Traditional Karate Goju Ryu (Daniele 120 EUR, Marina 75 EUR)
+  - outcomes: Pagamento 195,00 EUR effettuato e attivita-sportive.csv aggiornato
+
+## ✅ Done
+
+- [x] [as-2026-2027] Scaricare attestato e richiedere rimborso welfare ricarica ticket mensa del 4 novembre (84 EUR) [owner:: @francesco] [status:: done]
+  - why: captured in scratchpad on 2026-11-10
+  - outcomes: Attestato scaricato e richiesta welfare inviata il 2026-11-13
+
+- [x] [as-2026-2027] Scaricare attestato e richiedere rimborso welfare ricarica ticket mensa del 5 ottobre (150 EUR) [owner:: @francesco] [status:: done] [due:: 2026-10-20]
+  - why: ricarica ticket mensa effettuata il 2026-10-05, attestato non scaricato e rimborso welfare non richiesto
+  - outcomes: Attestato scaricato e richiesta welfare inviata il 2026-10-19
+
+- [x] [daniele-scuola] Scaricare Ricevuta caricamento Ticket di Settembre [due:: 2026-09-20] [owner:: @francesco] [status:: done]
+  - why: Serve la ricevuta per poter effettuare rimborso welfare aziendale
+  - outcomes: Ricevuta scaricata e richiesta welfare inviata il 2026-09-23
+- [x] [daniele-scuola] Scaricare Ricevuta Pagamento Retta di Settembre [due:: 2026-09-20] [owner:: @francesco] [status:: done]
+  - why: Serve la ricevuta per poter effettuare rimborso welfare aziendale
+  - outcomes: Ricevuta scaricata il 2026-09-16 e richiesta welfare inviata il 2026-09-17
+
+- [x] [SPORTS] Pagamento 1° trimestre Karate Marina (Set-Nov 2026) [due:: 2026-09-01] [owner:: @francesco] [status:: done]
+  - why: Saldo quota 1° trimestre corso monosettimanale Karate Traditional Karate Goju Ryu Marina
+  - outcomes: Pagamento 75,00 EUR effettuato e attivita-sportive.csv aggiornato a "Pagato"
+
+---
+
+### 📋 Formato Standard Task
+
+```markdown
+- [ ] [AREA/PROJECT_REFERENCE] Descrizione del task [due:: YYYY-MM-DD] [owner:: @username] [status:: todo]
+  - why: [La motivazione o obiettivo alla base del task]
+  - outcomes: [I deliverable o risultati attesi verificabili]
+```
+  </script>
+
   <!-- EMBEDDED JAVASCRIPT LOGIC -->
   <script>
     /**
      * INITIAL EMBEDDED TASKBOARD CONTENT
      */
-    const INITIAL_TASKBOARD_MD = $safeMdContent;
+    const INITIAL_TASKBOARD_MD = document.getElementById('initialTaskboard').textContent.trim();
 
     // Global state
     let parsedColumns = null;
@@ -1395,27 +1460,56 @@
     /**
      * Refresh data from TaskBoard.md
      */
+    let savedFileHandle = null;
+
     async function refreshData() {
       const btn = document.getElementById('btnRefresh');
       btn.classList.add('spinning');
 
       try {
-        // Attempt relative fetch to vault TaskBoard.md
-        const response = await fetch('../../TaskBoard.md?t=' + Date.now());
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
+        // 1. Prova fetch relativo (funziona con server web locale o preview)
+        try {
+          const response = await fetch('../../TaskBoard.md?t=' + Date.now());
+          if (response.ok) {
+            const text = await response.text();
+            parsedColumns = parseTaskBoardMarkdown(text);
+            renderBoard(parsedColumns);
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent = `Ultimo aggiornamento: ${now.toLocaleTimeString()}`;
+            showToast('Dati aggiornati da TaskBoard.md', 'success');
+            return;
+          }
+        } catch (fetchErr) {
+          // Ignorato su protocollo file:// (CORS)
         }
-        const text = await response.text();
-        parsedColumns = parseTaskBoardMarkdown(text);
-        renderBoard(parsedColumns);
-        
-        const now = new Date();
-        document.getElementById('lastUpdated').textContent = `Ultimo aggiornamento: ${now.toLocaleTimeString()}`;
-        showToast('Dati aggiornati da TaskBoard.md', 'success');
-      } catch (err) {
-        console.warn('Direct fetch failed (likely local file:// protocol or CORS). Activating fallback file picker.', err);
-        // Fallback: prompt user to pick the file directly
+
+        // 2. File System Access API: memorizza il file handle per refresh continuo a 1-click
+        if ('showOpenFilePicker' in window) {
+          if (!savedFileHandle) {
+            showToast('Seleziona TaskBoard.md per abilitare il refresh continuo', 'info');
+            [savedFileHandle] = await window.showOpenFilePicker({
+              types: [{
+                description: 'Markdown File (TaskBoard.md)',
+                accept: { 'text/markdown': ['.md'] }
+              }],
+              multiple: false
+            });
+          }
+          if (savedFileHandle) {
+            const file = await savedFileHandle.getFile();
+            const text = await file.text();
+            parsedColumns = parseTaskBoardMarkdown(text);
+            renderBoard(parsedColumns);
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent = `Ultimo aggiornamento: ${now.toLocaleTimeString()} (${file.name})`;
+            showToast('Dati aggiornati da TaskBoard.md', 'success');
+            return;
+          }
+        }
+
+        // 3. Fallback standard per browser legacy
         const filePicker = document.getElementById('filePickerFallback');
+        filePicker.value = '';
         filePicker.onchange = function(e) {
           const file = e.target.files[0];
           if (file) {
@@ -1431,6 +1525,12 @@
           }
         };
         filePicker.click();
+
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.warn('Refresh error:', err);
+          showToast('Impossibile aggiornare: ' + err.message, 'error');
+        }
       } finally {
         setTimeout(() => {
           btn.classList.remove('spinning');
@@ -1472,4 +1572,6 @@
   </script>
 </body>
 </html>
+
+
 

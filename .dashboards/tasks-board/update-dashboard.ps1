@@ -23,18 +23,21 @@ if (-not (Test-Path $htmlPath)) {
 $taskboardContent = Get-Content -Path $taskboardPath -Raw -Encoding UTF8
 $htmlContent = Get-Content -Path $htmlPath -Raw -Encoding UTF8
 
-# Escape backticks and dollar signs for template replacement
-$safeMdContent = $taskboardContent.Replace('`', '\`').Replace('$', '\$')
+$startTag = '<script type="text/markdown" id="initialTaskboard">'
+$endTag = '</script>'
 
-# Replace the INITIAL_TASKBOARD_MD content
-$pattern = 'const INITIAL_TASKBOARD_MD = `[\s\S]*?`;'
-$replacement = "const INITIAL_TASKBOARD_MD = `$safeMdContent`;"
-
-if ($htmlContent -match $pattern) {
-    $updatedHtml = [regex]::Replace($htmlContent, $pattern, $replacement)
-    Set-Content -Path $htmlPath -Value $updatedHtml -Encoding UTF8
-    Write-Host "Dashboard index.html aggiornato con successo da TaskBoard.md."
-} else {
-    Write-Error "Impossibile individuare il blocco INITIAL_TASKBOARD_MD in index.html."
-    exit 1
+$startIndex = $htmlContent.IndexOf($startTag)
+if ($startIndex -ge 0) {
+    $endIndex = $htmlContent.IndexOf($endTag, $startIndex)
+    if ($endIndex -gt $startIndex) {
+        $prefix = $htmlContent.Substring(0, $startIndex + $startTag.Length)
+        $suffix = $htmlContent.Substring($endIndex)
+        $newHtml = $prefix + "`r`n" + $taskboardContent.Trim() + "`r`n  " + $suffix
+        Set-Content -Path $htmlPath -Value $newHtml -Encoding UTF8
+        Write-Host "Dashboard index.html aggiornato con successo da TaskBoard.md."
+        exit 0
+    }
 }
+
+Write-Error "Impossibile individuare il blocco <script type='text/markdown' id='initialTaskboard'> in index.html."
+exit 1

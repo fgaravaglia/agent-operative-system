@@ -17,7 +17,7 @@ Consolidate monthly activities, project progress, knowledge expansion, and opera
    - Identify recurring themes and strategic decision patterns consolidated into the Wiki.
 
 3. **Deliverable Compilation**:
-   - Save report to `02_outputs/YYYY-MM-Summary.md`.
+   - Save report to `logs/YYYY-MM-Summary.md`.
    - Report structure:
      - **🏛️ Strategic Overview**: Overall status and progress across areas.
      - **⏱️ Time Allocation & Activity Analysis**: Quantitative breakdown by area and category.
@@ -25,5 +25,9 @@ Consolidate monthly activities, project progress, knowledge expansion, and opera
      - **🧠 Knowledge Graph Growth**: Summary of newly synthesized knowledge and relationships.
      - **🧭 Next Month Orientation**: Strategic guidance and upcoming milestones.
 
-4. **Notification**:
+4. **Clear up**:
+   - delete all monthly-related logs files inside `logs`
+   - remove all entries inside monthly sections in each Area and Project `log.md` file.
+
+5. **Notification**:
    - Notify Francesco with a brief executive summary and link to the output.

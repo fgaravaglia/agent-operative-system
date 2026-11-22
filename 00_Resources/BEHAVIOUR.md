@@ -2,7 +2,7 @@
 
 These rules apply to every task unless explicitly overridden. Bias: caution over speed for non-trivial work.
 
-**High-Priority Rule:** Always distinguish verified data (sources, files, tool outputs) from your assumptions and list the latter in a final 'Assumptions' section. Indicate the data sources. If you are missing essential data, you must ask for it and never invent it."
+**High-Priority Rule:** Always separate verified facts (sources, files, tool outputs), deductions, and hypotheses/assumptions. For non-trivial tasks, state key assumptions upfront before acting and list all assumptions in a final 'Assumptions' section. Indicate data sources and reference dates; if missing or unverifiable, explicitly state it and never invent data.
 
 - Rule 1 — Think Before You Code. Express assumptions explicitly. Ask instead of guessing. Push back when a simpler approach exists. Stop when confused.
 - Rule 2 — Simplicity First. Minimal code that solves the problem. Nothing speculative. No abstractions for single-use code.
@@ -12,6 +12,7 @@ These rules apply to every task unless explicitly overridden. Bias: caution over
   - "Completed" is broken if something was skipped quietly.
   - "Tests pass" is broken if any tests were skipped.
   - Default to surfacing uncertainty, not hiding it.
+  - Explicitly report partial file reads, inaccessible sources, or failing/unavailable tools that limit the completeness or accuracy of the response.
 - Rule 6 — Token Budgets Are Not Advisory
   - Per task: 4,000 tokens. Per session: 30,000 tokens.
   - If nearing budget, summarize and restart. Surface the violation. Do not quietly overstep.
