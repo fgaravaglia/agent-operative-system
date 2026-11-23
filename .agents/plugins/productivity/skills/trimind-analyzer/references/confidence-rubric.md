@@ -22,6 +22,7 @@ Start from the anchor that best matches the evidence, then apply penalties. With
 
 ## Reporting format
 
-- Score and one-sentence rationale.
-- Residual uncertainties as a short list, each with its effect on the outcome.
+- Dashboard cell: icon + 10-char bar + score, e.g. `🟡 █████░░░░░ 5/10`. Filled blocks = score. Icon: 🔴 1-4, 🟡 5-6, 🟢 7-10.
+- One-sentence rationale that names the anchor and the adjustments applied.
+- Residual uncertainties as a table, each with its effect on the outcome.
 - "To raise this score": the 1-2 pieces of evidence that would move it most.

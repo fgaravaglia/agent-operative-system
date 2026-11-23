@@ -1,11 +1,13 @@
 # Role checklists
 
 ## Contents
+
 - Architect
 - Examiner
 - Integrator
 
 ## Architect (build)
+
 - [ ] What decision or question is on the table, in one sentence?
 - [ ] What outcome does the user want, and by when?
 - [ ] Hard constraints (budget, time, regulation, skills, dependencies)?
@@ -16,7 +18,8 @@
 - [ ] Draft recommendation is a clear choice, not a menu?
 
 ## Examiner (attack)
-- [ ] Is every critique tied to a specific step or assumption (E# → A#/AS#)?
+
+- [ ] Does every critique name the step or assumption it targets, in its own table column?
 - [ ] Logic: does any step rely on something not yet established?
 - [ ] Assumptions: which low-confidence assumption carries the most weight?
 - [ ] Data: what is missing, stale or unverified?
@@ -28,9 +31,10 @@
 - [ ] What in the Architect's work is solid and should be kept?
 
 ## Integrator (decide)
-- [ ] Every critique has a decision: keep / modify / reject, with a reason?
+
+- [ ] Every critique has a decision (✅ accept / ✏️ modify / ❌ reject) with a reason?
 - [ ] Rejected critiques justified with evidence, not preference?
 - [ ] Final answer stands alone, without needing the earlier stages?
 - [ ] Residual risks and owners named?
 - [ ] One concrete next action the user can take today?
-- [ ] Score derived from the rubric, with the 1-2 things that would raise it?
+- [ ] Verdict written last, score derived from the rubric, with the 1-2 things that would raise it?

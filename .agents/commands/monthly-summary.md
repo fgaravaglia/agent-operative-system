@@ -26,8 +26,12 @@ Consolidate monthly activities, project progress, knowledge expansion, and opera
      - **🧭 Next Month Orientation**: Strategic guidance and upcoming milestones.
 
 4. **Clear up**:
-   - delete all monthly-related logs files inside `logs`
-   - remove all entries inside monthly sections in each Area and Project `log.md` file.
+Archive daily log files for the closed month by moving them from `logs/` to `archive/logs/` (without deleting their content or editing/removing entries in area or project `log.md` files, which remain append-only).
+
+- **Scope:** Only `logs/YYYY-MM-*.log` files belonging to the reported month and already included in the monthly summary.
+- **Integrity:** Do not delete files or remove entries/monthly sections from area or project `log.md` files.
+- **Auditability:** Record the move in the daily log (`logs/YYYY-MM-DD.log`) specifying the moved files and the `archive/logs/` destination.
+- **Confirmation gate:** Request explicit confirmation (`[ASK]`) before moving files to `archive/logs/`
 
 5. **Notification**:
    - Notify Francesco with a brief executive summary and link to the output.

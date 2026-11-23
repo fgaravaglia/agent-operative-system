@@ -3,6 +3,7 @@
 Use when the user's input is vague or missing. Examples are hypothetical.
 
 ## What a helpful input contains
+
 - Situation: who, what, where things stand now
 - The decision or question
 - Constraints: budget, time, regulation, skills
@@ -20,6 +21,7 @@ Use when the user's input is vague or missing. Examples are hypothetical.
 **Strategic action.** "Our team wants to adopt a new architecture pattern. Leadership is cautious. What is the strongest case, the strongest objection, and a pilot that limits risk?"
 
 ## Clarifying questions (pick at most 3)
+
 1. What outcome would make this a success, and by when?
 2. Which constraint is truly fixed, and which is negotiable?
 3. What data do you already have, and what is a guess?

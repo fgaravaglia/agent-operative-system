@@ -28,7 +28,7 @@ Systematically analyze all files within a user-specified folder (including image
 
 1. Check if `INDEX.md` already exists inside the target folder.
 2. If `--update` (or `update`) is specified AND `INDEX.md` exists:
-   - Parse the existing `INDEX.md` to extract the list of file paths already documented.
+   - Parse the existing `index.md` to extract the list of file paths already documented.
    - Filter the discovered file list to isolate **only** the new or unindexed files (delta).
    - If no new files are found, notify the user that the index is already up to date and terminate the workflow.
 3. If `--update` is **not** specified (or `INDEX.md` does not exist):
@@ -47,7 +47,7 @@ For each target file to process (all files for full generation, or only delta fi
 
 ### Step 4: INDEX.md Generation or Modification
 
-- **Full Mode**: Create or overwrite the `INDEX.md` file inside the root of the analyzed target folder using the standard template[cite: 1].
+- **Full Mode**: Create or overwrite the `index.md` file inside the root of the analyzed target folder using the standard template[cite: 1].
 - **Update Mode**: Append the new rows corresponding to the unindexed files directly into the existing table of the `INDEX.md` file without altering previous entries.
 
 Formatted according to the following schema[cite: 1]:
@@ -63,4 +63,4 @@ Formatted according to the following schema[cite: 1]:
 | `relative/path/to/new_file.ext` | Newly added file description. | When handling Z. |
 ```
 
-Use always english to write in INDEX.md file.
+Use always english to write in index.md file.

@@ -19,4 +19,7 @@ Use as a scan list. Report only the biases that actually plausibly apply, each w
 
 ## How to report
 
-"E3 → A4: possible planning fallacy. The 6-week estimate matches the best case; comparable efforts in this context usually run longer. Impact: delivery date in the final plan is at risk."
+In the critiques table, put the bias in the "Problem and impact" cell and the step in "Targets".
+In prose, name the target naturally:
+
+"Critique E3 on step A4: possible planning fallacy. The 6-week estimate matches the best case; comparable efforts in this context usually run longer. Impact: the delivery date in the final plan is at risk."

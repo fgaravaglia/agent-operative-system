@@ -1,48 +1,88 @@
-# Worked example (illustrative)
+# Worked example (illustrative, in Italian)
 
-All figures below are invented to show the format. Never reuse them as facts.
+Tutte le cifre sono inventate per mostrare il formato. Non riusarle come fatti.
+Mostra come appare l'output finale quando l'utente scrive in italiano.
 
-**User input:** "We are a 40-person software company. Build or buy a reporting module? Two senior engineers part-time, customers want it within two quarters, no vendor quotes yet."
+**Input utente:** "Siamo una software house da 40 persone. Costruire o comprare un modulo di reporting? Due senior part-time, i clienti lo vogliono entro due trimestri, nessun preventivo ancora."
 
-## Architect's Analysis
-**Question:** Should we build or buy a reporting module to ship within two quarters?
-**Assumptions:**
-- AS1 Part-time capacity is about 1 FTE-equivalent in total (confidence: medium)
-- AS2 Customers need standard reports, not a differentiating analytics product (confidence: low)
-- AS3 Vendor licences scale per customer or per seat (confidence: low)
-**Options:** A) Build in-house, B) Buy and embed, C) Buy now, replace later
-**Reasoning chain:**
-- A1 Deadline is two quarters and capacity is about 1 FTE, so a full build is tight — because the work includes design, security and support, not only coding.
-- A2 If AS2 holds, reporting is not a differentiator, so owning it adds little strategic value — because customers judge outcomes, not the engine.
-- A3 Buying shifts cost from engineering time to licence fees, which depends on AS3.
-**Draft recommendation:** Option C: buy and embed now, keep the data layer clean so replacement stays possible.
+## 🏗️ Analisi dell'Architetto
 
-## Examiner's Critique
-- E1 → AS2: untested. If customers want custom dashboards, "standard reports" fails and the vendor may lock us in. Fix: ask five customers what they actually use.
-- E2 → A3: licence cost could exceed build cost at our customer count. No quote exists yet, so the comparison is unproven. Fix: get two quotes before deciding.
-- E3 → A1: possible planning fallacy; capacity estimates for part-time staff are usually optimistic.
-- E4 → C: adoption risk. Engineers may resist a bought component; sales may promise features the vendor lacks.
-**Pre-mortem:** 1) licence fees outgrow revenue, 2) vendor limits block a customer request, 3) integration takes longer than the build estimate.
-**What would change my mind:** quotes showing licence cost above the 3-year build cost, or customers asking for heavy customisation.
-**What holds up:** the logic that reporting is probably not a differentiator, and that the deadline is tight.
+**Domanda:** Costruire o comprare un modulo di reporting da rilasciare in due trimestri?
 
-## Integrator's Synthesis
-| Critique | Decision | Reason |
+| ID | Assunzione | Confidenza |
 | --- | --- | --- |
-| E1 | modify | Make customer validation a gate before signing |
-| E2 | keep | Quotes become a precondition |
-| E3 | keep | Treat build estimate as best case; add buffer |
-| E4 | modify | Brief engineers and sales early; define an exit clause |
+| AS1 | La capacità part-time vale circa 1 FTE totale | 🟡 media |
+| AS2 | I clienti vogliono report standard, non analytics differenzianti | 🔴 bassa |
+| AS3 | Le licenze scalano per cliente o per utente | 🔴 bassa |
 
-**Final plan:** Run a two-week validation (5 customer calls, 2 vendor quotes). Decide buy vs build on 3-year cost and customisation need. Default to buy-and-embed with an exit clause if both checks pass.
-**Next action:** Book five customer calls this week and request two quotes.
+| Opzione | Pro | Contro |
+| --- | --- | --- |
+| A Costruire | Controllo totale, nessuna licenza | Tempi stretti, manutenzione a carico nostro |
+| B Comprare e integrare | Time-to-market rapido | Costo ricorrente, lock-in |
+| C Comprare ora, sostituire poi | Velocità e via d'uscita | Serve un data layer pulito |
 
-## Key Improvements and Rationale
-- The draft decided before validating AS2 and AS3; the final plan makes both gates.
-- Added an exit clause because lock-in was the most underweighted risk.
-- Data that would help: usage data on current reporting requests, real quotes.
+**Catena di ragionamento**
 
-## Confidence Rating and Residual Uncertainties
-**Score:** 5/10 — logic is sound (anchor 5-6), but AS2 and AS3 are unverified, so the cap at 6 applies, with −1 for adoption not yet assessed.
-**Residual uncertainties:** customer needs (could flip the choice), licence pricing (could flip the choice), real capacity.
-**To raise the score:** the customer calls and the two quotes.
+- **A1** Due trimestri e circa 1 FTE rendono tesa una build completa — *perché* il lavoro include design, sicurezza e supporto, non solo codice.
+- **A2** Se AS2 regge, il reporting non è un differenziante — *perché* i clienti giudicano i risultati, non il motore.
+- **A3** Comprare sposta il costo da ore di sviluppo a licenze — *perché* il confronto dipende da AS3.
+
+**👉 Bozza di raccomandazione:** Opzione C, comprare e integrare ora, mantenendo il data layer sostituibile.
+
+## 🔍 Critica dell'Esaminatore
+
+**💪 Cosa regge:** l'idea che il reporting probabilmente non differenzi, e che la scadenza sia stretta.
+
+| # | Colpisce | Angolo | Problema e impatto | Fix |
+| --- | --- | --- | --- | --- |
+| E1 | AS2 | 📌 assunzione | Mai verificata. Se i clienti vogliono dashboard custom, il fornitore diventa un limite | Chiedere a 5 clienti cosa usano davvero |
+| E2 | A3 | 🕳️ dati mancanti | Le licenze potrebbero costare più della build al nostro numero di clienti | Ottenere 2 preventivi prima di decidere |
+| E3 | A1 | 🧠 logica | Possibile planning fallacy: le stime sul part-time sono di solito ottimistiche | Trattare la stima come best case, aggiungere buffer |
+| E4 | Opzione C | 👥 adozione | I tecnici possono rifiutare un componente acquistato; le vendite possono promettere funzioni che il fornitore non ha | Coinvolgerli presto, definire una clausola di uscita |
+
+**🧪 Bias scan:** planning fallacy (E3), status-quo bias non rilevato.
+
+**💥 Pre-mortem (fallita dopo 12 mesi)**
+
+1. Le licenze crescono più dei ricavi.
+2. I limiti del fornitore bloccano una richiesta cliente.
+3. L'integrazione dura più della build stimata.
+
+**🔄 Cosa mi farebbe cambiare idea:** preventivi con costo licenze sopra il costo build a 3 anni, o clienti che chiedono forte personalizzazione.
+
+## ⚖️ Sintesi dell'Integratore
+
+| Critica | Decisione | Motivo |
+| --- | --- | --- |
+| E1 | ✏️ modifica | La validazione clienti diventa un gate prima di firmare |
+| E2 | ✅ accetta | I preventivi diventano precondizione |
+| E3 | ✅ accetta | Stima build come best case, con buffer |
+| E4 | ✏️ modifica | Briefing anticipato a tecnici e vendite, clausola di uscita nel contratto |
+
+**Piano finale:** due settimane di validazione (5 chiamate cliente, 2 preventivi). Decisione su costo a 3 anni e bisogno di personalizzazione. Default: comprare e integrare con clausola di uscita, se entrambi i controlli passano.
+
+## 🎯 Verdetto e Confidenza
+
+| Voce | Esito |
+| --- | --- |
+| ✅ Raccomandazione | Comprare e integrare, solo dopo i due gate di validazione |
+| ⚠️ Rischio principale | Costo licenze e lock-in non ancora quantificati |
+| 📊 Confidenza | 🟡 █████░░░░░ 5/10 |
+
+**Cosa è cambiato rispetto alla bozza**
+
+- La bozza decideva prima di validare AS2 e AS3; il piano finale li trasforma in gate.
+- Aggiunta la clausola di uscita: il lock-in era il rischio più sottovalutato.
+
+**Perché 5/10:** logica solida (ancoraggio 5-6), ma AS2 e AS3 non sono verificate, quindi vale il tetto a 6, con −1 perché l'adozione non è ancora valutata.
+
+| Incertezza residua | Effetto sull'esito |
+| --- | --- |
+| Bisogni reali dei clienti | Può ribaltare la scelta |
+| Prezzi delle licenze | Può ribaltare la scelta |
+| Capacità reale del team | Sposta la data di rilascio |
+
+**📈 Per alzare il punteggio:** le chiamate ai clienti e i due preventivi.
+**Dati utili:** storico delle richieste di reporting già ricevute.
+
+**👉 Prossima azione:** fissa oggi 5 chiamate cliente per questa settimana e richiedi 2 preventivi.

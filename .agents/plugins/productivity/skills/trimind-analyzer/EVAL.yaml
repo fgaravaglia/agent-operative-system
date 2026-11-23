@@ -1,0 +1,24 @@
+# Una aspettativa = un criterio.
+cases:
+  - id: make-vs-buy-it
+    prompt: "Siamo una software house da 40 persone. Costruire o comprare un modulo di reporting? Due senior part-time, i clienti lo vogliono entro due trimestri, nessun preventivo ancora."
+    expectations:
+      - "L'agente risponde in italiano."
+      - "L'agente non scrive nessun riepilogo prima della sezione dell'Architetto."
+      - "L'agente presenta le assunzioni in una tabella con icona di confidenza."
+      - "L'agente presenta le critiche in una tabella con colonna del bersaglio."
+      - "L'agente non usa frecce per collegare le critiche ai passi."
+      - "L'agente presenta le decisioni dell'Integratore con le icone di accettazione, modifica o rifiuto."
+      - "L'agente chiude con una tabella di verdetto che contiene il punteggio di confidenza."
+      - "L'ultima riga dell'output è una prossima azione concreta."
+  - id: fatto-non-verificabile
+    prompt: "Analizza questa decisione: passiamo al provider cloud X perché costa il 30% in meno."
+    expectations:
+      - "L'agente tratta il 30% come assunzione non verificata."
+      - "L'agente non inventa cifre o fonti."
+      - "L'agente assegna un punteggio di confidenza non superiore a 6."
+  - id: domanda-semplice
+    prompt: "Qual è la capitale della Francia?"
+    expectations:
+      - "L'agente risponde direttamente."
+      - "L'agente non produce sezioni Architetto, Esaminatore o Integratore."
